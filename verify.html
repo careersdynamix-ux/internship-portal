@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Credentials | Dynamix NETWORKS</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+        
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background-color: #FFFFFF; 
+            margin: 0; 
+        }
+
+        @keyframes fade-up { 
+            from { opacity: 0; transform: translateY(20px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+        
+        .animate-fade-up { animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        const LucideIcon = ({ name, size = 24, className = "" }) => {
+            const iconRef = useRef(null);
+            useEffect(() => {
+                if (window.lucide) {
+                    window.lucide.createIcons({
+                        icons: { [name]: window.lucide.icons[name] },
+                        attrs: { strokeWidth: 2, width: size, height: size, class: className }
+                    });
+                }
+            }, [name, size, className]);
+            return <i data-lucide={name} className={className}></i>;
+        };
+
+        const VerifyPage = () => {
+            const [id, setId] = useState('');
+            const [status, setStatus] = useState('idle'); // idle, loading, error
+
+            const handleVerify = () => {
+                if(!id) return;
+                setStatus('loading');
+                // Simulate a database check
+                setTimeout(() => setStatus('error'), 1500); 
+            };
+
+            return (
+                <div className="min-h-screen flex flex-col bg-white">
+                    {/* Navigation with Large Blended Logo */}
+                    <nav className="h-28 px-6 flex items-center bg-white">
+                        <div className="max-w-7xl mx-auto w-full flex justify-between items-center">
+                            <div className="flex items-center cursor-pointer" onClick={() => window.location.href = 'index.html'}>
+                                <div className="h-24 lg:h-24 w-auto flex items-center justify-start overflow-visible">
+                                    <img 
+                                        src="logo1.jpeg" 
+                                        alt="Dynamix Networks" 
+                                        className="h-full w-auto object-contain transition-transform hover:scale-105" 
+                                    />
+                                </div>
+                            </div>
+                            <a href="internships.html" className="text-sm font-bold text-slate-500 hover:text-blue-600 transition-colors flex items-center gap-2">
+                                <LucideIcon name="ArrowLeft" size={16} /> Back to Programs
+                            </a>
+                        </div>
+                    </nav>
+
+                    {/* Main Content */}
+                    <main className="flex-grow flex items-center justify-center px-6 pb-20">
+                        <div className="max-w-xl w-full text-center animate-fade-up">
+                            {/* Verification Shield Icon Container */}
+                            <div className="w-24 h-24 bg-slate-50 rounded-[2.5rem] shadow-sm flex items-center justify-center mx-auto mb-10 border border-slate-100">
+                                <LucideIcon name="ShieldCheck" size={40} className="text-blue-600" />
+                            </div>
+
+                            <h1 className="text-4xl md:text-5xl font-black text-slate-900 mb-4 tracking-tight">Verify Credentials</h1>
+                            <p className="text-slate-500 mb-12 font-medium leading-relaxed text-lg">
+                                Enter your unique Intern ID to validate the authenticity of your digital certificate and completion record.
+                            </p>
+
+                            {/* Verification Input Box */}
+                            <div className="bg-white p-3 rounded-[2rem] shadow-2xl shadow-blue-50 border border-slate-100 flex flex-col sm:flex-row gap-3">
+                                <div className="flex-grow flex items-center px-4">
+                                    <LucideIcon name="Search" size={18} className="text-slate-300 mr-3" />
+                                    <input 
+                                        type="text" 
+                                        placeholder="DXN-2026-XXXX" 
+                                        className="w-full py-4 bg-transparent outline-none font-bold text-slate-700 placeholder:text-slate-300 uppercase"
+                                        value={id}
+                                        onChange={(e) => setId(e.target.value)}
+                                        onKeyPress={(e) => e.key === 'Enter' && handleVerify()}
+                                    />
+                                </div>
+                                <button 
+                                    onClick={handleVerify}
+                                    disabled={status === 'loading'}
+                                    className="bg-blue-600 text-white px-10 py-5 rounded-2xl font-black hover:bg-blue-700 transition-all shadow-lg shadow-blue-200 disabled:opacity-70"
+                                >
+                                    {status === 'loading' ? 'Checking...' : 'Verify Now'}
+                                </button>
+                            </div>
+
+                            {status === 'error' && (
+                                <div className="mt-8 p-4 bg-rose-50 border border-rose-100 rounded-2xl text-rose-600 text-sm font-bold animate-fade-up">
+                                    No record found for ID: <span className="underline">{id}</span>. Please check your certificate for the correct ID.
+                                </div>
+                            )}
+
+                            {/* Trust Badges */}
+                            <div className="mt-12 flex items-center justify-center gap-8 text-slate-400">
+                                <div className="flex items-center gap-2">
+                                    <LucideIcon name="Lock" size={14} className="text-slate-300" />
+                                    <span className="text-[10px] font-bold uppercase tracking-widest">Secure Verification</span>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <LucideIcon name="CheckCircle" size={14} className="text-slate-300" />
+                                    <span className="text-[10px] font-bold uppercase tracking-widest">Authentic Record</span>
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+
+                    {/* Footer Logo Section */}
+                    <footer className="py-16 text-center border-t border-slate-100 flex flex-col items-center bg-white">
+                        <div className="h-16 mb-6">
+                             <img 
+                                src="logo1.jpeg" 
+                                alt="Dynamix Networks" 
+                                className="h-full w-auto object-contain opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-500" 
+                             />
+                        </div>
+                        <p className="text-slate-400 text-[10px] font-bold uppercase tracking-[0.5em]">© 2026 DYNAMIX NETWORKS GLOBAL</p>
+                    </footer>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<VerifyPage />);
+    </script>
+</body>
+</html>

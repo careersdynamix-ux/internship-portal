@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamix NETWORKS | Internship Portal</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+        
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background-color: #FFFFFF; 
+            margin: 0; 
+            scroll-behavior: smooth;
+            overflow-y: auto; 
+        }
+
+        @keyframes fade-in { 
+            from { opacity: 0; transform: translateY(10px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+        
+        .animate-fade-in { animation: fade-in 0.4s ease-out forwards; }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f8fafc; }
+        ::-webkit-scrollbar-thumb { background: #2563eb; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #1e40af; }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        const LucideIcon = ({ name, size = 24, className = "" }) => {
+            const iconRef = useRef(null);
+            useEffect(() => {
+                if (window.lucide) {
+                    window.lucide.createIcons({
+                        icons: { [name]: window.lucide.icons[name] },
+                        attrs: { strokeWidth: 2.5, width: size, height: size, class: className }
+                    });
+                }
+            }, [name, size, className]);
+            return <i data-lucide={name} className={className}></i>;
+        };
+
+        const App = () => {
+            const [selectedDuration, setSelectedDuration] = useState('1 Month');
+            const [activeModal, setActiveModal] = useState(null);
+            const [scrolled, setScrolled] = useState(false);
+
+            useEffect(() => {
+                const handleScroll = () => setScrolled(window.scrollY > 20);
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+
+            const internshipRoles = [
+                { id: 1, title: 'Data Analytics', icon: 'BarChart3', color: 'from-blue-600 to-cyan-400' },
+                { id: 2, title: 'Data Science', icon: 'Database', color: 'from-fuchsia-600 to-purple-500' },
+                { id: 3, title: 'Java Developer', icon: 'Cpu', color: 'from-orange-500 to-yellow-500' },
+                { id: 4, title: 'Python Developer', icon: 'Terminal', color: 'from-emerald-500 to-teal-400' },
+                { id: 5, title: 'Machine Learning', icon: 'BrainCircuit', color: 'from-violet-600 to-indigo-500' },
+                { id: 6, title: 'UI/UX Designer', icon: 'Palette', color: 'from-rose-500 to-pink-400' },
+                { id: 7, title: 'Frontend Developer', icon: 'Layout', color: 'from-sky-500 to-blue-500' },
+                { id: 8, title: 'Backend Developer', icon: 'Server', color: 'from-amber-500 to-orange-600' },
+            ];
+
+            const internshipDetails = [
+                { icon: 'Coins', title: 'Performance Stipend', desc: 'Upto ₹20,000 for top performers based on project quality.', color: 'text-amber-600' },
+                { icon: 'Target', title: 'PPO Opportunity', desc: 'Pre-Placement Offer ranging from 3.8 to 5.6 LPA for exceptional interns.', color: 'text-indigo-600' },
+                { icon: 'ShieldCheck', title: 'Verifiable Certificate', desc: 'Secure digital credentials for your LinkedIn.', color: 'text-emerald-600' },
+                { icon: 'Briefcase', title: 'Industry Specific', desc: 'Work on projects tailored to current market needs.', color: 'text-blue-600' },
+                { icon: 'Globe', title: '100% Remote', desc: 'Work from anywhere in the world comfortably.', color: 'text-cyan-600' },
+                { icon: 'Layout', title: 'Project Based', desc: 'Build a portfolio with real-world applications.', color: 'text-rose-600' }
+            ];
+
+            const handleApply = () => {
+                window.open('https://forms.gle/494ypW5GZPs6iqWH6', '_blank');
+            };
+
+            return (
+                <div className="min-h-screen bg-white">
+                    <nav className={`fixed w-full z-[60] transition-all duration-300 ${scrolled ? 'bg-white/95 backdrop-blur-md border-b border-slate-100 h-24 shadow-sm' : 'bg-white h-28'}`}>
+                        <div className="max-w-7xl mx-auto px-5 h-full flex justify-between items-center">
+                            <div className="flex items-center cursor-pointer" onClick={() => window.location.href = 'index.html'}>
+                                <div className="h-24 lg:h-24 w-auto flex items-center justify-start">
+                                    <img src="logo1.jpeg" alt="Dynamix Networks" className="h-full w-auto object-contain transition-transform hover:scale-105" />
+                                </div>
+                            </div>
+                            <div className="hidden md:flex items-center gap-10 text-xs font-bold text-slate-700 uppercase tracking-widest">
+                                <a href="index.html" className="hover:text-blue-600 transition-colors">Home</a>
+                                <a href="#" className="text-blue-600 border-b-2 border-blue-600 pb-1">Programs</a>
+                                <a href="verify.html" className="hover:text-blue-600 transition-colors">Verification</a>
+                            </div>
+                        </div>
+                    </nav>
+
+                    <main className="animate-fade-in pt-44 md:pt-52 pb-20 px-5 bg-white">
+                        <div className="max-w-7xl mx-auto text-center">
+                            <h1 className="text-4xl md:text-7xl font-black text-slate-900 mb-6 tracking-tight">Scale Your <span className="text-blue-600">Career</span></h1>
+                            <p className="text-slate-600 mb-10 max-w-2xl mx-auto font-medium text-lg">Choose a duration and start your journey with our project-driven internship tracks.</p>
+                            
+                            <div className="inline-flex p-1.5 bg-slate-50 border border-slate-200 rounded-full mb-16">
+                                {['1 Month', '2 Months', '3 Months'].map((d) => (
+                                    <button 
+                                        key={d} 
+                                        onClick={() => setSelectedDuration(d)} 
+                                        className={`px-8 py-2.5 rounded-full text-xs md:text-sm font-bold transition-all duration-300 ${
+                                            selectedDuration === d ? 'bg-blue-600 text-white shadow-lg' : 'text-slate-500 hover:bg-white hover:shadow-sm'
+                                        }`}
+                                    >
+                                        {d}
+                                    </button>
+                                ))}
+                            </div>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                                {internshipRoles.map((role) => (
+                                    <div key={role.id} className="bg-white border border-slate-200 rounded-[2.5rem] p-8 flex flex-col items-center text-center hover:shadow-xl hover:border-blue-200 transition-all group">
+                                        <div className={`w-20 h-20 rounded-3xl bg-gradient-to-br ${role.color} flex items-center justify-center text-white mb-8 shadow-lg`}>
+                                            <LucideIcon name={role.icon} size={32} />
+                                        </div>
+                                        <h3 className="text-2xl font-black text-slate-900 mb-3">{role.title}</h3>
+                                        <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-slate-50 text-slate-500 text-xs font-bold mb-10 border border-slate-100">
+                                            <LucideIcon name="Clock" size={14} className="text-blue-600" />
+                                            {selectedDuration} Duration
+                                        </div>
+                                        <button onClick={() => setActiveModal(role)} className="w-full py-4 bg-slate-50 border border-slate-200 rounded-2xl text-sm font-black group-hover:bg-blue-600 group-hover:text-white transition-all flex items-center justify-center gap-2">
+                                            View Details <LucideIcon name="ArrowRight" size={16} />
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </main>
+
+                    {activeModal && (
+                        <div className="fixed inset-0 z-[100] flex items-end md:items-center justify-center p-0 md:p-4">
+                            <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" onClick={() => setActiveModal(null)} />
+                            <div className="relative bg-white rounded-t-[3rem] md:rounded-[3rem] w-full max-w-2xl max-h-[90vh] overflow-y-auto animate-fade-in shadow-2xl">
+                                <div className={`p-10 md:p-14 bg-gradient-to-br ${activeModal.color} text-white relative`}>
+                                    <button onClick={() => setActiveModal(null)} className="absolute top-8 right-8 p-2 bg-black/10 rounded-full hover:bg-black/20 transition-colors">
+                                        <LucideIcon name="X" size={20} />
+                                    </button>
+                                    <div className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center mb-6">
+                                        <LucideIcon name={activeModal.icon} size={32} />
+                                    </div>
+                                    <h2 className="text-4xl md:text-5xl font-black tracking-tighter mb-2">{activeModal.title}</h2>
+                                    <p className="font-bold opacity-90 text-lg">Internship Program • {selectedDuration}</p>
+                                </div>
+
+                                <div className="p-10 md:p-14">
+                                    <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-600 mb-8 flex items-center gap-3">
+                                        <div className="h-px w-8 bg-blue-600" />
+                                        Program Incentives & Benefits
+                                    </h4>
+
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12">
+                                        {internshipDetails.map((item, idx) => (
+                                            <div key={idx} className="flex items-start gap-4 p-5 rounded-3xl bg-slate-50 border border-slate-100 transition-all hover:bg-white hover:shadow-md">
+                                                <div className="mt-1 shrink-0"><LucideIcon name={item.icon} className={item.color} size={22} /></div>
+                                                <div>
+                                                    <p className="font-black text-slate-900 text-sm mb-1">{item.title}</p>
+                                                    <p className="text-slate-500 text-xs leading-relaxed font-medium">{item.desc}</p>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    <div className="flex flex-col sm:flex-row gap-4">
+                                        <button 
+                                            onClick={handleApply}
+                                            className="flex-[2] py-5 bg-blue-600 text-white font-black rounded-2xl shadow-xl shadow-blue-200 hover:bg-blue-700 transition-all flex items-center justify-center gap-2"
+                                        >
+                                            Apply for {activeModal.title} <LucideIcon name="ArrowRight" size={18} />
+                                        </button>
+                                        <button onClick={() => setActiveModal(null)} className="flex-1 py-5 bg-slate-100 text-slate-600 font-bold rounded-2xl hover:bg-slate-200 transition-all">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    <footer className="py-24 text-center bg-white border-t border-slate-100 flex flex-col items-center">
+                        <div className="h-20 lg:h-24 mb-8">
+                             <img src="logo1.jpeg" alt="Dynamix Networks" className="h-full w-auto object-contain" />
+                        </div>
+                        <p className="text-slate-400 text-[10px] font-bold uppercase tracking-[0.4em]">© 2026 DYNAMIX NETWORKS</p>
+                    </footer>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>

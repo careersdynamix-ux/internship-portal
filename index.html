@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamix Networks | Enterprise Software & AI Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #ffffff;
+            color: #1a1a1a;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+        .soft-glass {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-pattern {
+            background-color: #ffffff;
+            background-image: radial-gradient(#e5e7eb 0.5px, transparent 0.5px);
+            background-size: 24px 24px;
+        }
+        .content-tab, .page-section {
+            display: none;
+        }
+        .content-tab.active, .page-section.active {
+            display: block;
+            animation: fadeIn 0.4s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .tab-btn.active {
+            background-color: #2563eb;
+            color: white;
+            border-color: #2563eb;
+            box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.2);
+        }
+        .tech-card:hover {
+            transform: translateY(-5px);
+            border-color: #2563eb;
+        }
+        #mobile-menu {
+            transition: all 0.3s ease-in-out;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+        }
+        #mobile-menu.active {
+            max-height: 500px;
+            opacity: 1;
+            padding: 1.5rem;
+        }
+    </style>
+</head>
+<body class="hero-pattern">
+
+    <nav class="fixed w-full z-50 bg-white border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-24 flex items-center justify-between">
+        <div class="flex items-center cursor-pointer" onclick="navigateTo('home')">
+            <div class="h-24 lg:h-24 w-auto flex items-center justify-start overflow-visible">
+                <img src="logo1.jpeg" 
+                     alt="Dynamix Networks Logo" 
+                     class="h-full w-auto object-contain mix-multiply">
+            </div>
+            </div>
+        
+        <div class="hidden lg:flex space-x-8 text-sm font-semibold text-slate-600 items-center">
+            <button onclick="navigateTo('home')" class="hover:text-blue-600 transition">Home</button>
+            <a href="internships.html" class="hover:text-blue-600 transition">Internships</a>
+            <button onclick="navigateTo('testimonials')" class="hover:text-blue-600 transition">Testimonials</button>
+            <a href="verify.html" class="hover:text-blue-600 transition">Verify ID</a>
+            <button onclick="navigateTo('contact')" class="bg-blue-600 text-white px-6 py-2.5 rounded-full hover:bg-blue-700 transition shadow-md shadow-blue-100">Contact Us</button>
+        </div>
+
+        <button onclick="toggleMobileMenu()" class="lg:hidden p-2 text-slate-600">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+            </svg>
+        </button>
+    </div>
+
+    <div id="mobile-menu" class="lg:hidden w-full bg-white border-b border-slate-100 flex flex-col space-y-4 shadow-xl">
+        <button onclick="navigateTo('home'); toggleMobileMenu()" class="text-left font-bold text-slate-700 p-2">Home</button>
+        <a href="internships.html" class="text-left font-bold text-slate-700 p-2">Internships</a>
+        <button onclick="navigateTo('testimonials'); toggleMobileMenu()" class="text-left font-bold text-slate-700 p-2">Testimonials</button>
+        <a href="verify.html" class="text-left font-bold text-slate-700 p-2">Verify ID</a>
+        <button onclick="navigateTo('contact'); toggleMobileMenu()" class="bg-blue-600 text-white p-4 rounded-xl font-bold text-center">Contact Us</button>
+    </div>
+</nav>
+
+    <main id="main-content">
+
+        <div id="page-terms" class="page-section py-24 sm:py-32 px-4 bg-white">
+    <div class="max-w-4xl mx-auto">
+        <div class="mb-16 border-b border-slate-100 pb-12">
+            <div class="flex items-center gap-2 mb-4">
+                
+                <span class="text-xs font-bold text-blue-600 uppercase tracking-widest">Legal Governance</span>
+            </div>
+            <h1 class="text-4xl sm:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight">Master Terms of Service</h1>
+            <p class="text-slate-500 text-lg sm:text-xl leading-relaxed max-w-2xl">
+                These terms govern the utilization of Dynamix Networks' enterprise infrastructure, AI deployment frameworks, and DXN NETWORKS career programs.
+            </p>
+            <div class="mt-8 flex flex-wrap gap-6 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                <span>Ref: DXN-TOS-2026-001</span>
+                <span>•</span>
+                <span>Revision: v3.0</span>
+                <span>•</span>
+                <span>Jurisdiction: Ghaziabad, UP, India</span>
+            </div>
+        </div>
+
+        <div class="grid lg:grid-cols-4 gap-12">
+            <div class="hidden lg:block space-y-4 sticky top-32 h-fit">
+                <p class="text-xs font-bold text-slate-900 uppercase mb-6">Service Clauses</p>
+                <a href="#acceptance" class="block text-sm text-slate-500 hover:text-blue-600 transition">01. Acceptance of Terms</a>
+                <a href="#licensing" class="block text-sm text-slate-500 hover:text-blue-600 transition">02. Software Licensing</a>
+                <a href="#ip-rights" class="block text-sm text-slate-500 hover:text-blue-600 transition">03. Intellectual Property</a>
+                <a href="#internships" class="block text-sm text-slate-500 hover:text-blue-600 transition">04. DXN NETWORKS Protocols</a>
+                <a href="#liability" class="block text-sm text-slate-500 hover:text-blue-600 transition">05. Limitation of Liability</a>
+                <a href="#termination" class="block text-sm text-slate-500 hover:text-blue-600 transition">06. Termination</a>
+            </div>
+
+            <div class="lg:col-span-3 space-y-20">
+                
+                <section id="acceptance">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-6">01. Agreement Execution</h2>
+                    <p class="leading-relaxed text-slate-600">
+                        By accessing our portals or deploying our software modules, you enter into a legally binding contract with Dynamix Networks Inc. If you are accepting these terms on behalf of a corporation, you represent that you have the legal authority to bind said entity to these protocols.
+                    </p>
+                </section>
+
+                <section id="licensing">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-6">02. Software & AI License Scope</h2>
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100 mb-6">
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            Dynamix Networks grants you a revocable, non-exclusive, non-transferable license to utilize our ERP modules and AI decision engines strictly for internal business operations. 
+                        </p>
+                    </div>
+                    <h4 class="font-bold text-slate-900 mb-4 text-sm">Prohibited Activities:</h4>
+                    <ul class="grid sm:grid-cols-2 gap-4">
+                        <li class="p-3 bg-red-50 text-red-700 text-xs rounded-lg border border-red-100 flex items-center gap-2 font-medium">
+                            <span>✕</span> Reverse-engineering AI logic
+                        </li>
+                        <li class="p-3 bg-red-50 text-red-700 text-xs rounded-lg border border-red-100 flex items-center gap-2 font-medium">
+                            <span>✕</span> Circumventing rate limits
+                        </li>
+                        <li class="p-3 bg-red-50 text-red-700 text-xs rounded-lg border border-red-100 flex items-center gap-2 font-medium">
+                            <span>✕</span> Multi-tenant bypass attempts
+                        </li>
+                        <li class="p-3 bg-red-50 text-red-700 text-xs rounded-lg border border-red-100 flex items-center gap-2 font-medium">
+                            <span>✕</span> Unauthorized scraping
+                        </li>
+                    </ul>
+                </section>
+
+                <section id="ip-rights">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-6">03. Intellectual Property (IP) Siloing</h2>
+                    <p class="mb-6 leading-relaxed text-slate-600">
+                        All underlying proprietary algorithms, neural network weights (excluding client-specific fine-tuning), and source code remains the exclusive property of Dynamix Networks.
+                    </p>
+                    <div class="p-6 bg-blue-900 rounded-3xl text-white shadow-xl">
+                        <h4 class="font-bold mb-2">Custom Client Work</h4>
+                        <p class="text-sm text-blue-200">Ownership of custom-developed modules is governed by individual Statements of Work (SOW). In the absence of an SOW, Dynamix Networks retains all IP rights while providing a lifetime usage license to the client.</p>
+                    </div>
+                </section>
+
+                <section id="internships">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-6">04. Internship Program (DXN NETWORKS)</h2>
+                    <p class="mb-6 leading-relaxed text-slate-600">Participating in our internship program requires strict adherence to our professional code of conduct:</p>
+                    <div class="space-y-4">
+                        <div class="flex gap-4 p-4 border border-slate-100 rounded-xl">
+                            <span class="text-blue-600 font-bold">A.</span>
+                            <p class="text-sm text-slate-500"><span class="font-bold text-slate-700">Confidentiality:</span> Interns may have access to non-public API documentation. Disclosure to third parties results in immediate termination and legal action.</p>
+                        </div>
+                        <div class="flex gap-4 p-4 border border-slate-100 rounded-xl">
+                            <span class="text-blue-600 font-bold">B.</span>
+                            <p class="text-sm text-slate-500"><span class="font-bold text-slate-700">Certification:</span> Certificates are only issued upon meeting 100% of project milestones. Dynamix Networks reserves the right to withhold certification for plagiarism.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="liability">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-6">05. Liability & Warranty Disclaimer</h2>
+                    <p class="italic text-slate-500 mb-6 text-sm">"Services are provided on an 'AS IS' and 'AS AVAILABLE' basis."</p>
+                    <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            Dynamix Networks shall not be liable for any indirect, incidental, or consequential damages—including but not limited to loss of profits, data, or business reputation—resulting from AI-driven decision outputs or cloud infrastructure downtime.
+                        </p>
+                    </div>
+                </section>
+
+                <section id="termination">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-6">06. Dispute Resolution & Jurisdiction</h2>
+                    <p class="leading-relaxed text-slate-600">
+                        These terms are governed by the laws of India. Any disputes arising from these terms shall be subject to the exclusive jurisdiction of the courts located in <span class="font-bold text-slate-900">Ghaziabad, Uttar Pradesh</span>.
+                    </p>
+                </section>
+
+                <div class="pt-12 border-t border-slate-100 flex flex-col sm:flex-row gap-6 items-center justify-between">
+                    <div>
+                        <p class="text-slate-900 font-bold">Reviewing for a Corporation?</p>
+                        <p class="text-sm text-slate-500">Contact our legal desk for an executed MSA.</p>
+                    </div>
+                    <button onclick="navigateTo('contact')" class="px-8 py-3 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 transition shadow-lg">Contact Legal Desk</button>
+                </div>
+                
+                <button onclick="navigateTo('home')" class="block text-center text-slate-400 text-xs hover:text-blue-600 transition underline">Back to Home</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="page-refund" class="page-section py-24 sm:py-32 px-4 bg-white">
+    <div class="max-w-4xl mx-auto">
+        <div class="mb-16 border-b border-slate-100 pb-12 flex flex-col items-center text-center">
+            <div class="mb-6">
+                <div class="h-16 lg:h-24 w-auto flex items-center justify-center overflow-visible">
+                    <img src="logo1.jpeg" alt="Dynamix Networks Logo" class="h-full w-auto object-contain mix-blend-multiply">
+                </div>
+            </div>
+
+            <span class="text-sm font-bold text-blue-600 uppercase tracking-widest mb-4">
+                Financial Operations
+            </span>
+
+            <h1 class="text-4xl sm:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight">
+                Refund & Cancellation
+            </h1>
+            <p class="text-slate-500 text-lg leading-relaxed max-w-2xl mx-auto">
+                Transparency in our billing and service commitments is a core pillar of our enterprise relationships.
+            </p>
+        </div>
+
+        <div class="space-y-16 text-slate-600">
+            <section class="text-center">
+                <h2 class="text-2xl font-bold text-slate-900 mb-6">01. Enterprise Service Contracts</h2>
+                <div class="space-y-6 max-w-2xl mx-auto">
+                    <p><strong>Deployment Fees:</strong> One-time setup and architecture deployment fees for custom ERP or AI modules are non-refundable once the 'Discovery Phase' is completed.</p>
+                    <p><strong>Subscription Services:</strong> Recurring cloud support or SaaS subscriptions can be cancelled with a 30-day written notice via our official support channel.</p>
+                </div>
+            </section>
+
+            <section class="p-8 sm:p-12 bg-slate-50 rounded-[3rem] border border-slate-100 text-center">
+                <h2 class="text-2xl font-bold text-slate-900 mb-6">02. DXN NETWORKS & Certifications</h2>
+                <p class="mb-8 leading-relaxed max-w-xl mx-auto text-slate-500">For specialized training tracks or certification administrative fees, the following window applies:</p>
+                
+                <ul class="space-y-4 text-sm max-w-md mx-auto">
+                    <li class="flex items-center justify-center gap-3 p-3 bg-white rounded-xl shadow-sm border border-slate-100">
+                        <span class="text-blue-600 font-bold">Full Refund:</span>
+                        <span class="text-slate-600">Request made 10+ days before start</span>
+                    </li>
+                    <li class="flex items-center justify-center gap-3 p-3 bg-white rounded-xl shadow-sm border border-slate-100">
+                        <span class="text-blue-600 font-bold">Partial (50%):</span>
+                        <span class="text-slate-600">Request made 3-9 days before start</span>
+                    </li>
+                    <li class="flex items-center justify-center gap-3 p-3 bg-white rounded-xl shadow-sm border border-slate-100">
+                        <span class="text-red-600 font-bold">No Refund:</span>
+                        <span class="text-slate-600">After commencement or plagiarism</span>
+                    </li>
+                </ul>
+            </section>
+
+            <div class="text-center pt-8">
+                <button onclick="navigateTo('home')" class="text-blue-600 font-bold hover:underline inline-flex items-center gap-2">
+                    ← Back to Corporate Home
+                </button>
+            </div>
+        </div>
+    </div>
+</div>            <button onclick="navigateTo('home')" class="text-blue-600 font-bold hover:underline">← Back to Corporate Home</button>
+        </div>
+    </div>
+</div>
+
+        <div id="page-privacy" class="page-section py-24 sm:py-32 px-4 bg-white">
+    <div class="max-w-4xl mx-auto">
+        <div class="mb-16 border-b border-slate-100 pb-12">
+            
+            <h1 class="text-4xl sm:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight">Privacy Framework</h1>
+            <p class="text-slate-500 text-lg sm:text-xl leading-relaxed max-w-2xl">
+                This document outlines the rigorous protocols Dynamix Networks employs to safeguard data integrity and user confidentiality across our global infrastructure.
+            </p>
+            <div class="mt-8 flex flex-wrap gap-6 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                <span>Ref: DXN-POL-2026-001</span>
+                <span>•</span>
+                <span>Effective: Jan 23, 2026</span>
+                <span>•</span>
+                <span>Status: Active</span>
+            </div>
+        </div>
+
+        <div class="grid lg:grid-cols-4 gap-12">
+            <div class="hidden lg:block space-y-4 sticky top-32 h-fit">
+                <p class="text-xs font-bold text-slate-900 uppercase mb-6">On this page</p>
+                <a href="#data-collection" class="block text-sm text-slate-500 hover:text-blue-600 transition">01. Data Collection</a>
+                <a href="#processing-logic" class="block text-sm text-slate-500 hover:text-blue-600 transition">02. Processing Logic</a>
+                <a href="#security-ops" class="block text-sm text-slate-500 hover:text-blue-600 transition">03. Security & Zero Trust</a>
+                <a href="#cookies" class="block text-sm text-slate-500 hover:text-blue-600 transition">04. Cookies & Tracking</a>
+                <a href="#retention" class="block text-sm text-slate-500 hover:text-blue-600 transition">05. Data Retention</a>
+                <a href="#legal-rights" class="block text-sm text-slate-500 hover:text-blue-600 transition">06. Statutory Rights</a>
+            </div>
+
+            <div class="lg:col-span-3 space-y-20">
+                
+                <section id="data-collection">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-6">01. Information Taxonomy</h2>
+                    <p class="mb-6">We categorize the data we collect into three distinct tiers to ensure purpose-limited processing:</p>
+                    <div class="space-y-4">
+                        <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100">
+                            <h4 class="font-bold text-slate-900 mb-2">Technical Identifiers</h4>
+                            <p class="text-sm text-slate-500 mb-3">IP addresses, browser fingerprints, device telemetry, and system logs.</p>
+                            <span class="text-[10px] bg-blue-100 text-blue-700 px-2 py-1 rounded font-bold">NECESSITY: SECURITY & OPTIMIZATION</span>
+                        </div>
+                        <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100">
+                            <h4 class="font-bold text-slate-900 mb-2">Professional & Academic Data</h4>
+                            <p class="text-sm text-slate-500 mb-3">Legal names, business emails, university credentials, and skill assessments via DXN NETWORKS.</p>
+                            <span class="text-[10px] bg-emerald-100 text-emerald-700 px-2 py-1 rounded font-bold">NECESSITY: SERVICE DELIVERY</span>
+                        </div>
+                        <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100">
+                            <h4 class="font-bold text-slate-900 mb-2">Behavioral Metadata</h4>
+                            <p class="text-sm text-slate-500 mb-3">Interaction patterns with our AI interfaces and ERP dashboards to improve UX/UI efficiency.</p>
+                            <span class="text-[10px] bg-purple-100 text-purple-700 px-2 py-1 rounded font-bold">NECESSITY: PRODUCT IMPROVEMENT</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="processing-logic">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-6">02. Legal Basis for Processing</h2>
+                    <p class="leading-relaxed mb-6">Dynamix Networks processes information under the following legal frameworks:</p>
+                    <ul class="list-disc pl-6 space-y-4 text-slate-600">
+                        <li><strong>Contractual Fulfillment:</strong> To provide the ERP and AI services requested by enterprise clients.</li>
+                        <li><strong>Legitimate Interest:</strong> To detect, prevent, and architect solutions against cyber threats.</li>
+                        <li><strong>Consent:</strong> Explicitly obtained for marketing communications and internship applications.</li>
+                    </ul>
+                </section>
+
+                <section id="security-ops" class="bg-slate-900 p-8 sm:p-12 rounded-[3rem] text-white">
+                    <h2 class="text-2xl font-bold mb-6">03. Security Infrastructure</h2>
+                    <p class="text-slate-400 mb-8 leading-relaxed">Our infrastructure is architected on a <strong>Zero Trust Architecture (ZTA)</strong>. We operate under the assumption that the network is always hostile.</p>
+                    
+                    <div class="grid sm:grid-cols-2 gap-8 mb-8">
+                        <div>
+                            <h4 class="text-blue-400 font-bold mb-2">Hardware-Level Security</h4>
+                            <p class="text-sm text-slate-400">All data nodes reside in ISO 27001 certified data centers with 24/7 physical monitoring.</p>
+                        </div>
+                        <div>
+                            <h4 class="text-blue-400 font-bold mb-2">AI Isolation</h4>
+                            <p class="text-sm text-slate-400">Client-specific AI models are cryptographically siloed to prevent cross-tenant data leakage.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6 bg-white/5 border border-white/10 rounded-2xl">
+                        <p class="text-xs italic text-slate-300">"Data is encrypted at rest using AES-256-GCM and in transit via TLS 1.3. We perform weekly automated penetration testing on all public-facing endpoints."</p>
+                    </div>
+                </section>
+
+                <section id="cookies">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-6">04. Digital Tracking Policy</h2>
+                    <table class="w-full text-left text-sm">
+                        <thead>
+                            <tr class="border-b border-slate-200">
+                                <th class="pb-4 font-bold text-slate-900">Type</th>
+                                <th class="pb-4 font-bold text-slate-900">Purpose</th>
+                                <th class="pb-4 font-bold text-slate-900">Duration</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-slate-500">
+                            <tr class="border-b border-slate-50">
+                                <td class="py-4">Essential</td>
+                                <td class="py-4">Session & Security</td>
+                                <td class="py-4">Session</td>
+                            </tr>
+                            <tr class="border-b border-slate-50">
+                                <td class="py-4">Analytical</td>
+                                <td class="py-4">UX Optimization</td>
+                                <td class="py-4">2 Years</td>
+                            </tr>
+                            <tr>
+                                <td class="py-4">Preferences</td>
+                                <td class="py-4">AI Customization</td>
+                                <td class="py-4">1 Year</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <section id="retention">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-6">05. Lifecycle & Retention</h2>
+                    <p class="leading-relaxed">Dynamix Networks does not store data indefinitely. Retention periods are defined as:</p>
+                    <div class="mt-6 flex flex-col gap-4">
+                        <div class="flex items-center justify-between p-4 border border-slate-100 rounded-xl">
+                            <span class="font-bold text-slate-700">Internship Records</span>
+                            <span class="text-blue-600 font-mono">5 Years Post-Cert</span>
+                        </div>
+                        <div class="flex items-center justify-between p-4 border border-slate-100 rounded-xl">
+                            <span class="font-bold text-slate-700">Enterprise Logs</span>
+                            <span class="text-blue-600 font-mono">180 Days</span>
+                        </div>
+                        <div class="flex items-center justify-between p-4 border border-slate-100 rounded-xl">
+                            <span class="font-bold text-slate-700">Financial Records</span>
+                            <span class="text-blue-600 font-mono">7 Years</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="legal-rights">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-6">06. Statutory Rights (GDPR/CCPA/PDPB)</h2>
+                    <p class="mb-6">Regardless of your location, Dynamix Networks provides the following global standard of rights:</p>
+                    <div class="grid sm:grid-cols-2 gap-4">
+                        <div class="p-4 bg-white border border-slate-200 rounded-xl shadow-sm">
+                            <h5 class="font-bold text-slate-900 text-sm">Right to Access</h5>
+                            <p class="text-xs text-slate-500 mt-1">Obtain a copy of your structured data in JSON format.</p>
+                        </div>
+                        <div class="p-4 bg-white border border-slate-200 rounded-xl shadow-sm">
+                            <h5 class="font-bold text-slate-900 text-sm">Right to Erasure</h5>
+                            <p class="text-xs text-slate-500 mt-1">Request total deletion of all non-statutory records.</p>
+                        </div>
+                        <div class="p-4 bg-white border border-slate-200 rounded-xl shadow-sm">
+                            <h5 class="font-bold text-slate-900 text-sm">Non-Discrimination</h5>
+                            <p class="text-xs text-slate-500 mt-1">We will not deny service based on exercised privacy rights.</p>
+                        </div>
+                        <div class="p-4 bg-white border border-slate-200 rounded-xl shadow-sm">
+                            <h5 class="font-bold text-slate-900 text-sm">DPO Consultation</h5>
+                            <p class="text-xs text-slate-500 mt-1">Direct access to our Data Protection Officer.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="pt-12 border-t border-slate-100 flex flex-col sm:flex-row gap-6 items-center justify-between">
+                    <div>
+                        <p class="text-slate-900 font-bold">Have privacy questions?</p>
+                        <p class="text-sm text-slate-500">Our compliance team is here to help.</p>
+                    </div>
+                    <button onclick="navigateTo('contact')" class="px-8 py-3 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition shadow-lg shadow-blue-100">Contact Compliance Team</button>
+                </div>
+                
+                <button onclick="navigateTo('home')" class="block text-center text-slate-400 text-xs hover:text-blue-600 transition underline">Return to Main Portal</button>
+            </div>
+        </div>
+    </div>
+</div>
+        <div id="page-home" class="page-section active">
+            <section class="relative pt-32 pb-16 lg:pt-48 lg:pb-32 px-4 sm:px-6">
+                <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+                    <div class="text-center lg:text-left">
+                        <span class="inline-block px-4 py-1.5 rounded-full bg-blue-50 text-blue-700 text-xs font-bold mb-6 tracking-wider uppercase border border-blue-100">
+                            Next-Gen Enterprise Development
+                        </span>
+                        <h1 class="text-4xl sm:text-5xl lg:text-7xl font-extrabold text-slate-900 leading-[1.1] mb-6">
+                            Scale with <span class="text-gradient">Intelligent</span> Software.
+                        </h1>
+                        <p class="text-slate-600 text-base sm:text-lg lg:text-xl max-w-xl mx-auto lg:mx-0 mb-8 leading-relaxed">
+                            We architect robust ERP platforms and cutting-edge AI solutions designed to mitigate risk and accelerate growth for global enterprises.
+                        </p>
+                        <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
+                            <button onclick="scrollToExplorer('erp')" class="px-8 py-4 bg-blue-600 text-white font-bold rounded-2xl hover:bg-blue-700 transition-all shadow-xl shadow-blue-200">
+                                Explore ERP Cloud
+                            </button>
+                            <button onclick="scrollToExplorer('ai')" class="px-8 py-4 bg-white text-slate-700 border border-slate-200 font-bold rounded-2xl hover:bg-slate-50 transition-all">
+                                AI Automation
+                            </button>
+                        </div>
+                    </div>
+                    <div class="relative px-2">
+                        <div class="absolute -top-5 -right-5 w-32 h-32 sm:w-64 sm:h-64 bg-blue-100 rounded-full blur-3xl opacity-50"></div>
+                        <div class="relative rounded-3xl overflow-hidden shadow-2xl border border-slate-200">
+                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop" alt="Dashboard" class="w-full h-auto">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-12 bg-white px-4 sm:px-6">
+                <div class="max-w-7xl mx-auto">
+                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8 text-center">
+                        <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100">
+                            <div class="text-3xl sm:text-4xl font-extrabold text-blue-600 mb-1">500+</div>
+                            <div class="text-slate-500 font-semibold text-[10px] sm:text-xs uppercase tracking-wider">Deployments</div>
+                        </div>
+                        <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100">
+                            <div class="text-3xl sm:text-4xl font-extrabold text-blue-600 mb-1">99.9%</div>
+                            <div class="text-slate-500 font-semibold text-[10px] sm:text-xs uppercase tracking-wider">Uptime</div>
+                        </div>
+                        <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100">
+                            <div class="text-3xl sm:text-4xl font-extrabold text-blue-600 mb-1">15+</div>
+                            <div class="text-slate-500 font-semibold text-[10px] sm:text-xs uppercase tracking-wider">Countries</div>
+                        </div>
+                        <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100">
+                            <div class="text-3xl sm:text-4xl font-extrabold text-blue-600 mb-1">24/7</div>
+                            <div class="text-slate-500 font-semibold text-[10px] sm:text-xs uppercase tracking-wider">Support</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="solutions-explorer" class="py-16 sm:py-24 px-4 sm:px-6 bg-slate-50 border-y border-slate-100">
+                <div class="max-w-7xl mx-auto">
+                    <div class="text-center mb-10">
+                        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4">Core Competencies</h2>
+                        <p class="text-slate-500 text-sm sm:text-base max-w-2xl mx-auto">Specialized divisions focusing on the pillars of modern enterprise technology.</p>
+                    </div>
+
+                    <div class="flex flex-wrap justify-center gap-2 mb-12">
+                        <button onclick="switchTab('erp')" id="btn-erp" class="tab-btn active px-6 py-2 rounded-full border border-slate-200 font-bold text-sm sm:text-base transition-all">ERP Cloud</button>
+                        <button onclick="switchTab('ai')" id="btn-ai" class="tab-btn px-6 py-2 rounded-full border border-slate-200 font-bold text-sm sm:text-base transition-all">AI</button>
+                        <button onclick="switchTab('security')" id="btn-security" class="tab-btn px-6 py-2 rounded-full border border-slate-200 font-bold text-sm sm:text-base transition-all">Audit</button>
+                    </div>
+
+                    <div id="content-erp" class="content-tab active">
+                        <div class="grid lg:grid-cols-2 gap-8 items-center">
+                            <img src="https://th.bing.com/th/id/OIP.DUZ5I28L8c5ummiGjUPnHQHaED?w=279&h=180&c=7&r=0&o=7&cb=defcachec2&dpr=1.3&pid=1.7&rm=3" class="rounded-3xl shadow-xl w-full h-[250px] sm:h-[400px] object-cover" alt="ERP">
+                            <div>
+                                <h3 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-4">Enterprise Resource Planning</h3>
+                                <p class="text-slate-600 text-sm sm:text-base mb-6 leading-relaxed">Centralized nerve centers that synchronize finance, supply chain, and human resources in real-time.</p>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div class="p-4 bg-white rounded-xl border border-slate-100">
+                                        <div class="font-bold text-blue-600 mb-1">Scalability</div>
+                                        <p class="text-xs text-slate-500">Auto-scaling cloud infrastructure.</p>
+                                    </div>
+                                    <div class="p-4 bg-white rounded-xl border border-slate-100">
+                                        <div class="font-bold text-blue-600 mb-1">Real-time</div>
+                                        <p class="text-xs text-slate-500">Instant cross-department sync.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="content-ai" class="content-tab">
+                        <div class="grid lg:grid-cols-2 gap-8 items-center">
+                            <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2070&auto=format&fit=crop" class="rounded-3xl shadow-xl w-full h-[250px] sm:h-[400px] object-cover lg:order-2" alt="AI">
+                            <div class="lg:order-1">
+                                <h3 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-4">Predictive AI & Automation</h3>
+                                <p class="text-slate-600 text-sm sm:text-base mb-6 leading-relaxed">We create predictive engines that forecast market trends, optimize logistics, and automate repetitive tasks.</p>
+                                <div class="space-y-3">
+                                    <div class="flex items-center gap-3 text-slate-700">
+                                        <div class="w-1.5 h-1.5 bg-blue-600 rounded-full"></div>
+                                        <span class="text-sm">Custom LLM Fine-tuning</span>
+                                    </div>
+                                    <div class="flex items-center gap-3 text-slate-700">
+                                        <div class="w-1.5 h-1.5 bg-blue-600 rounded-full"></div>
+                                        <span class="text-sm">Automated Decision Engines</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="content-security" class="content-tab">
+                        <div class="grid lg:grid-cols-2 gap-8 items-center">
+                            <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=2070&auto=format&fit=crop" class="rounded-3xl shadow-xl w-full h-[250px] sm:h-[400px] object-cover" alt="Security">
+                            <div>
+                                <h3 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-4">Full-Spectrum Cyber Defense</h3>
+                                <p class="text-slate-600 text-sm sm:text-base mb-6 leading-relaxed">Military-grade audits simulating breach attempts to harden your infrastructure.</p>
+                                <div class="p-6 bg-blue-600 text-white rounded-2xl">
+                                    <p class="text-sm italic opacity-90">"Securing over $500M in digital assets annually."</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-16 sm:py-24 px-4 bg-white">
+                <div class="max-w-7xl mx-auto">
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-12 text-center">Our Strategic Framework</h2>
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm transition hover:shadow-md">
+                            <div class="w-12 h-12 bg-blue-600 text-white flex items-center justify-center rounded-2xl mb-6 font-bold text-xl">01</div>
+                            <h4 class="text-xl font-bold mb-4">Discover & Audit</h4>
+                            <p class="text-slate-500 text-sm sm:text-base leading-relaxed">We analyze bottlenecks and security gaps to map out a transformation roadmap.</p>
+                        </div>
+                        <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm transition hover:shadow-md">
+                            <div class="w-12 h-12 bg-blue-600 text-white flex items-center justify-center rounded-2xl mb-6 font-bold text-xl">02</div>
+                            <h4 class="text-xl font-bold mb-4">Architect & Build</h4>
+                            <p class="text-slate-500 text-sm sm:text-base leading-relaxed">Custom development of cloud-native modules tailored to your industry constraints.</p>
+                        </div>
+                        <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm transition hover:shadow-md">
+                            <div class="w-12 h-12 bg-blue-600 text-white flex items-center justify-center rounded-2xl mb-6 font-bold text-xl">03</div>
+                            <h4 class="text-xl font-bold mb-4">Deploy & Scale</h4>
+                            <p class="text-slate-500 text-sm sm:text-base leading-relaxed">Continuous integration and 24/7 monitoring ensure your new ecosystem scales seamlessly.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-16 sm:py-24 px-4 bg-slate-900 text-white">
+                <div class="max-w-7xl mx-auto">
+                    <div class="flex flex-col md:flex-row justify-between items-center mb-12 gap-6 text-center md:text-left">
+                        <div>
+                            <h2 class="text-3xl sm:text-4xl font-extrabold mb-4">Modern Tech Stack</h2>
+                            <p class="text-slate-400 max-w-lg">We use industry-standard technologies to ensure long-term performance.</p>
+                        </div>
+                        <button onclick="navigateTo('contact')" class="px-8 py-3 bg-blue-600 rounded-xl font-bold hover:bg-blue-700 transition">View Tech Partners</button>
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                        <div class="p-6 rounded-2xl border border-slate-800 tech-card transition-all text-center">
+                            <div class="text-blue-500 font-bold mb-2 uppercase text-sm">AWS/Azure</div>
+                            <p class="text-[10px] text-slate-500">Cloud Infra</p>
+                        </div>
+                        <div class="p-6 rounded-2xl border border-slate-800 tech-card transition-all text-center">
+                            <div class="text-blue-500 font-bold mb-2 uppercase text-sm">Python</div>
+                            <p class="text-[10px] text-slate-500">AI/Back-end</p>
+                        </div>
+                        <div class="p-6 rounded-2xl border border-slate-800 tech-card transition-all text-center">
+                            <div class="text-blue-500 font-bold mb-2 uppercase text-sm">React/Next</div>
+                            <p class="text-[10px] text-slate-500">Front-end</p>
+                        </div>
+                        <div class="p-6 rounded-2xl border border-slate-800 tech-card transition-all text-center">
+                            <div class="text-blue-500 font-bold mb-2 uppercase text-sm">Docker</div>
+                            <p class="text-[10px] text-slate-500">Containers</p>
+                        </div>
+                        <div class="p-6 rounded-2xl border border-slate-800 tech-card transition-all text-center">
+                            <div class="text-blue-500 font-bold mb-2 uppercase text-sm">PostgreSQL</div>
+                            <p class="text-[10px] text-slate-500">Database</p>
+                        </div>
+                        <div class="p-6 rounded-2xl border border-slate-800 tech-card transition-all text-center">
+                            <div class="text-blue-500 font-bold mb-2 uppercase text-sm">K8s</div>
+                            <p class="text-[10px] text-slate-500">Orchestration</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-16 sm:py-24 px-4 bg-white">
+                <div class="max-w-7xl mx-auto">
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-12 text-center">Industry Expertise</h2>
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="p-6 border-l-4 border-slate-100 hover:border-blue-600 transition-all bg-slate-50 rounded-r-2xl">
+                            <h5 class="font-bold text-lg mb-2">FinTech</h5>
+                            <p class="text-slate-500 text-sm">Secure payment processing and fraud detection systems.</p>
+                        </div>
+                        <div class="p-6 border-l-4 border-slate-100 hover:border-blue-600 transition-all bg-slate-50 rounded-r-2xl">
+                            <h5 class="font-bold text-lg mb-2">Healthcare</h5>
+                            <p class="text-slate-500 text-sm">HIPAA compliant patient portals and diagnostics AI.</p>
+                        </div>
+                        <div class="p-6 border-l-4 border-slate-100 hover:border-blue-600 transition-all bg-slate-50 rounded-r-2xl">
+                            <h5 class="font-bold text-lg mb-2">Manufacturing</h5>
+                            <p class="text-slate-500 text-sm">IoT-enabled supply chain and inventory management.</p>
+                        </div>
+                        <div class="p-6 border-l-4 border-slate-100 hover:border-blue-600 transition-all bg-slate-50 rounded-r-2xl">
+                            <h5 class="font-bold text-lg mb-2">Logistics</h5>
+                            <p class="text-slate-500 text-sm">Real-time route optimization and asset tracking.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-16 sm:py-24 px-4">
+                <div class="max-w-5xl mx-auto bg-blue-600 rounded-[2.5rem] p-8 sm:p-16 text-center text-white shadow-2xl shadow-blue-200">
+                    <h2 class="text-3xl sm:text-5xl font-extrabold mb-8 leading-tight">Ready to scale?</h2>
+                    <p class="text-blue-100 text-base sm:text-lg mb-10 max-w-2xl mx-auto">Join 200+ global enterprises that have scaled their operations with Dynamix Networks.</p>
+                    <div class="flex flex-col sm:flex-row justify-center gap-4">
+                        <button onclick="navigateTo('contact')" class="px-10 py-5 bg-white text-blue-600 font-bold rounded-2xl hover:bg-slate-50 transition shadow-lg">Free Consultation</button>
+                        <button onclick="navigateTo('testimonials')" class="px-10 py-5 bg-blue-700 text-white font-bold rounded-2xl hover:bg-blue-800 transition">View Case Studies</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <section id="page-testimonials" class="page-section py-20 sm:py-32 bg-slate-50 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 mb-12">
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4 text-center">Trusted by Leaders & Future Talent</h2>
+        <p class="text-center text-slate-600 max-w-2xl mx-auto text-sm sm:text-base">Empowering businesses with AI and shaping the next generation of engineers through DXN NETWORKS.</p>
+    </div>
+
+    <div class="flex flex-col gap-4 sm:gap-8">
+        <div id="client-track" class="flex gap-4 sm:gap-8 marquee-track animate-scroll-left"></div>
+        
+        <div id="intern-track" class="flex gap-4 sm:gap-8 marquee-track animate-scroll-right"></div>
+    </div>
+</section>
+
+<style>
+    /* Marquee Animation Logic */
+    .marquee-track {
+        display: flex;
+        width: max-content;
+    }
+
+    @keyframes scroll-left {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+    }
+
+    @keyframes scroll-right {
+        0% { transform: translateX(-50%); }
+        100% { transform: translateX(0); }
+    }
+
+    /* Slower on mobile for readability, faster on desktop */
+    .animate-scroll-left {
+        animation: scroll-left 40s linear infinite;
+    }
+
+    .animate-scroll-right {
+        animation: scroll-right 40s linear infinite;
+    }
+
+    @media (min-width: 640px) {
+        .animate-scroll-left { animation-duration: 70s; }
+        .animate-scroll-right { animation-duration: 70s; }
+    }
+
+    .marquee-track:hover {
+        animation-play-state: paused;
+    }
+
+    /* Edge Fades */
+    #page-testimonials {
+        position: relative;
+    }
+    #page-testimonials::before,
+    #page-testimonials::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        width: 60px; /* Smaller fade for mobile */
+        height: 100%;
+        z-index: 2;
+        pointer-events: none;
+    }
+    @media (min-width: 640px) {
+        #page-testimonials::before, #page-testimonials::after { width: 150px; }
+    }
+    #page-testimonials::before { left: 0; background: linear-gradient(to right, #f8fafc, transparent); }
+    #page-testimonials::after { right: 0; background: linear-gradient(to left, #f8fafc, transparent); }
+
+    /* Testimonial Card Styling */
+    .testimonial-card {
+        width: 280px; /* Mobile width */
+        flex-shrink: 0;
+    }
+    @media (min-width: 640px) {
+        .testimonial-card { width: 380px; } /* Desktop width */
+    }
+</style>
+
+<script>
+    const clientData = [
+        { name: "Sarah Jenkins", role: "CTO, NexaCorp", text: "Dynamix transformed our supply chain visibility overnight. Unmatched scalability.", initial: "SJ" },
+        { name: "TechStream Solutions", role: "CEO", text: "The custom LLM fine-tuning provided by DXN revolutionized our customer support response rates.", initial: "TS" },
+        { name: "Global Logistics Corp", role: "Ops Director", text: "Migrating our legacy ERP to the cloud seemed impossible until we partnered with Dynamix.", initial: "GL" },
+        { name: "Fintech Group", role: "Head of IT", text: "Their cloud security audit saved us from vulnerabilities we hadn't even considered.", initial: "FG" },
+        { name: "Retail Giant", role: "CMO", text: "The team doesn't just sell software; they solve business problems. Their AI insights are vital.", initial: "RG" },
+        { name: "ScaleUp Inc.", role: "Founder", text: "Restructured our cloud infrastructure to handle 10x traffic without a single hitch. Incredible.", initial: "SI" },
+        { name: "HealthFront", role: "VP Operations", text: "Finally, a tech partner that speaks 'business.' Their tools save us 10 hours a week.", initial: "HF" },
+        { name: "AutoVision", role: "R&D Lead", text: "The custom computer vision solution delivered by DXN outperformed every off-the-shelf product.", initial: "AV" },
+        { name: "Innovate UK", role: "Director", text: "The level of technical expertise at Dynamix Networks is unmatched in the Cloud and AI space.", initial: "IU" },
+        { name: "Heritage Banking", role: "CIO", text: "Reliable, innovative, and always ahead of the curve. They transformed our data chaos.", initial: "HB" }
+    ];
+
+    const internData = [
+        { name: "Aman Sharma", role: "AI Intern", text: "Worked on real-world predictive modeling. A game-changer for my career as a 2026 grad.", initial: "AS" },
+        { name: "Sneha Gupta", role: "Data Eng Intern", text: "Building a data pipeline from scratch was the highlight. Remote but very engaging culture.", initial: "SG" },
+        { name: "Rohan V.", role: "AI Research", text: "The verifiable certificate for industry-grade AI projects helped me stand out in placements.", initial: "RV" },
+        { name: "Priya Das", role: "Cloud Intern", text: "They don't just give you tasks; they give you responsibilities. I deep-dived into AWS daily.", initial: "PD" },
+        { name: "Vikram Mehra", role: "Dev Intern", text: "Learned the importance of clean code and documentation—skills college doesn't teach enough.", initial: "VM" },
+        { name: "Ananya K.", role: "Data Science", text: "I worked on real datasets that required serious cleaning. Challenging and high-growth.", initial: "AK" },
+        { name: "Siddharth J.", role: "Gen AI Intern", text: "Bridges the gap between theory and industry. Loved the hands-on approach to LLMs.", initial: "SJ" },
+        { name: "Ishita R.", role: "Backend Intern", text: "100% remote setup allowed me to balance final year studies while gaining professional skills.", initial: "IR" },
+        { name: "Karan P.", role: "Systems Intern", text: "Learned more about real-time sync and ERP in two months here than in a whole semester.", initial: "KP" },
+        { name: "Megha W.", role: "Frontend Intern", text: "A truly supportive environment. My mentor made sure I understood the 'why' behind every line.", initial: "MW" }
+    ];
+
+    function createCard(item, color) {
+        return `
+            <div class="testimonial-card p-6 sm:p-8 bg-white rounded-2xl sm:rounded-3xl shadow-sm border border-slate-100 flex flex-col justify-between">
+                <div>
+                    <div class="text-blue-600 mb-2 sm:mb-4 text-3xl sm:text-4xl font-serif">"</div>
+                    <p class="text-slate-600 italic mb-6 sm:mb-8 text-sm sm:text-base leading-relaxed">${item.text}</p>
+                </div>
+                <div class="flex items-center gap-3 sm:gap-4">
+                    <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full ${color} flex items-center justify-center font-bold text-white text-[10px] sm:text-xs shrink-0">${item.initial}</div>
+                    <div>
+                        <p class="font-bold text-slate-900 text-xs sm:text-sm leading-tight">${item.name}</p>
+                        <p class="text-slate-400 text-[9px] sm:text-[10px] uppercase tracking-wider">${item.role}</p>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    const clientTrack = document.getElementById('client-track');
+    const internTrack = document.getElementById('intern-track');
+
+    // Populate and loop
+    clientData.forEach(item => { clientTrack.innerHTML += createCard(item, 'bg-blue-600'); });
+    clientTrack.innerHTML += clientTrack.innerHTML; 
+
+    internData.forEach(item => { internTrack.innerHTML += createCard(item, 'bg-slate-800'); });
+    internTrack.innerHTML += internTrack.innerHTML;
+</script>
+        
+        <div id="page-contact" class="page-section py-32 px-4 bg-white">
+    <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+        <div class="text-center lg:text-left">
+            <h2 class="text-4xl sm:text-5xl font-black text-slate-900 mb-6 tracking-tight">
+                Let's <span class="text-blue-600">Connect</span>
+            </h2>
+            <p class="text-slate-500 mb-10 text-lg max-w-lg leading-relaxed">
+                Our experts are ready to help you architect your next breakthrough. Reach out to us directly or fill out the form.
+            </p>
+
+            <div class="inline-flex flex-col gap-6 w-full max-w-md">
+                <div class="flex items-center gap-5 p-6 bg-slate-50 rounded-[2rem] border border-slate-100 transition-all hover:shadow-md group">
+                    <div class="w-14 h-14 bg-blue-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-blue-100 group-hover:scale-110 transition-transform">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Official Support</p>
+                        <a href="mailto:services@dynamixnetworks.in" class="text-lg font-bold text-slate-900 hover:text-blue-600 transition-colors">
+                            services@dynamixnetworks.in
+                        </a>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-5 p-6 bg-slate-50 rounded-[2rem] border border-slate-100 transition-all hover:shadow-md group">
+                    <div class="w-14 h-14 bg-slate-900 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-slate-200 group-hover:scale-110 transition-transform">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Location</p>
+                        <p class="text-lg font-bold text-slate-900">Gurugram, Haryana, India</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white p-8 sm:p-10 rounded-[3rem] shadow-2xl shadow-blue-50 border border-slate-100">
+            <form class="space-y-5">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold text-slate-400 uppercase ml-2">First Name</label>
+                        <input type="text" placeholder="" class="w-full px-6 py-4 bg-slate-50 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold text-slate-400 uppercase ml-2">Last Name</label>
+                        <input type="text" placeholder="" class="w-full px-6 py-4 bg-slate-50 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all">
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <label class="text-xs font-bold text-slate-400 uppercase ml-2">Email Address</label>
+                    <input type="email" placeholder="name@company.com" class="w-full px-6 py-4 bg-slate-50 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all">
+                </div>
+                <div class="space-y-2">
+                    <label class="text-xs font-bold text-slate-400 uppercase ml-2">Message</label>
+                    <textarea placeholder="Tell us about your project or inquiry..." rows="4" class="w-full px-6 py-4 bg-slate-50 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all"></textarea>
+                </div>
+                <button class="w-full py-5 bg-blue-600 text-white font-black rounded-2xl shadow-xl shadow-blue-100 hover:bg-blue-700 hover:-translate-y-1 transition-all">
+                    Send Message
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+        <footer class="bg-slate-50 border-t border-slate-200 pt-16 pb-8 px-4 sm:px-6">
+
+            
+
+            <div class="max-w-7xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-2 cursor-pointer" onclick="navigateTo('home')">
+                            <div class="w-32 h-24 bg-blue-600 rounded-lg flex items-center justify-center overflow-hidden">
+                                <img src="logo1.jpeg" alt="Logo" class="w-full h-full ">
+                            </div>
+                            <span class="text-base font-extrabold tracking-tight text-slate-900 uppercase"><span class="text-blue-600 font-medium"></span></span>
+                        </div>
+                    </div>
+                    <div>
+    <h4 class="font-bold text-slate-900 mb-6">Legal & Policy</h4>
+    <ul class="space-y-4 text-sm text-slate-600">
+        <li><button onclick="navigateTo('privacy')" class="hover:text-blue-600 transition">Privacy Policy</button></li>
+        <li><button onclick="navigateTo('terms')" class="hover:text-blue-600 transition">Terms & Conditions</button></li>
+        <li><button onclick="navigateTo('refund')" class="hover:text-blue-600 transition">Refund Policy</button></li>
+    </ul>
+</div>
+
+                    <div>
+                        <h4 class="font-bold text-slate-900 mb-6">Quick Links</h4>
+                        <ul class="space-y-4 text-sm text-slate-600">
+                            <li><button onclick="navigateTo('home')" class="hover:text-blue-600 transition">Corporate Home</button></li>
+                            <li><a href="internships.html" class="hover:text-blue-600 transition">Career Opportunities</a></li>
+                            <li><button onclick="navigateTo('testimonials')" class="hover:text-blue-600 transition">Client Success Stories</button></li>
+                            <li><a href="verify.html" class="hover:text-blue-600 transition">Certificate Verification</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+                
+                <div class="border-t border-slate-200 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-400">
+                    <p>© 2026 Dynamix Networks Inc. All rights reserved.</p>
+                    <div class="flex gap-6">
+                        <a href="#" class="hover:text-blue-600">Privacy Policy</a>
+                        <a href="#" class="hover:text-blue-600">Terms of Service</a>
+                    </div>
+                </div>
+            </div>
+            
+        </footer>
+    </main>
+
+    <script>
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('active');
+        }
+
+        function navigateTo(pageId) {
+            document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+            const target = document.getElementById('page-' + pageId);
+            if(target) target.classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.content-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('content-' + tabId).classList.add('active');
+            document.getElementById('btn-' + tabId).classList.add('active');
+        }
+
+        function scrollToExplorer(tabId) {
+            switchTab(tabId);
+            document.getElementById('solutions-explorer').scrollIntoView();
+        }
+    </script>
+</body>
+</html>
