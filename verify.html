@@ -34,6 +34,10 @@
     <script type="text/babel">
         const { useState, useEffect, useRef } = React;
 
+        // --- CONFIGURATION ---
+        // REPLACE THIS with your Google Apps Script Web App URL
+        const GOOGLE_SHEET_API_URL = "https://script.google.com/macros/s/AKfycbzmJr-2kRXRFmGVAP9eGPwtzKGGi28X-o71_P8fGDPoMDlseVfckzqJW40E6yd4T5s/exec";
+
         const LucideIcon = ({ name, size = 24, className = "" }) => {
             const iconRef = useRef(null);
             useEffect(() => {
@@ -49,18 +53,34 @@
 
         const VerifyPage = () => {
             const [id, setId] = useState('');
-            const [status, setStatus] = useState('idle'); // idle, loading, error
+            const [status, setStatus] = useState('idle'); // idle, loading, success, error
+            const [internData, setInternData] = useState(null);
 
-            const handleVerify = () => {
+            const handleVerify = async () => {
                 if(!id) return;
+                
                 setStatus('loading');
-                // Simulate a database check
-                setTimeout(() => setStatus('error'), 1500); 
+                setInternData(null);
+
+                try {
+                    const response = await fetch(`${GOOGLE_SHEET_API_URL}?id=${encodeURIComponent(id.trim())}`);
+                    const result = await response.json();
+
+                    if (result.status === "success") {
+                        setInternData(result);
+                        setStatus('success');
+                    } else {
+                        setStatus('error');
+                    }
+                } catch (err) {
+                    console.error("Verification Error:", err);
+                    setStatus('error');
+                }
             };
 
             return (
                 <div className="min-h-screen flex flex-col bg-white">
-                    {/* Navigation with Large Blended Logo */}
+                    {/* Navigation */}
                     <nav className="h-28 px-6 flex items-center bg-white">
                         <div className="max-w-7xl mx-auto w-full flex justify-between items-center">
                             <div className="flex items-center cursor-pointer" onClick={() => window.location.href = 'index.html'}>
@@ -81,14 +101,13 @@
                     {/* Main Content */}
                     <main className="flex-grow flex items-center justify-center px-6 pb-20">
                         <div className="max-w-xl w-full text-center animate-fade-up">
-                            {/* Verification Shield Icon Container */}
                             <div className="w-24 h-24 bg-slate-50 rounded-[2.5rem] shadow-sm flex items-center justify-center mx-auto mb-10 border border-slate-100">
                                 <LucideIcon name="ShieldCheck" size={40} className="text-blue-600" />
                             </div>
 
                             <h1 className="text-4xl md:text-5xl font-black text-slate-900 mb-4 tracking-tight">Verify Credentials</h1>
                             <p className="text-slate-500 mb-12 font-medium leading-relaxed text-lg">
-                                Enter your unique Intern ID to validate the authenticity of your digital certificate and completion record.
+                                Enter your unique Intern ID to validate the authenticity of your digital certificate.
                             </p>
 
                             {/* Verification Input Box */}
@@ -113,9 +132,56 @@
                                 </button>
                             </div>
 
+                            {/* Success Result Card */}
+                            {status === 'success' && internData && (
+                                <div className="mt-10 p-8 bg-white border-2 border-green-100 rounded-[2.5rem] shadow-2xl text-left animate-fade-up relative overflow-hidden">
+                                    {/* Valid Watermark Icon */}
+                                    <div className="absolute -top-4 -right-4">
+                                        <LucideIcon name="BadgeCheck" size={120} className="text-green-500 opacity-10" />
+                                    </div>
+                                    
+                                    <div className="flex justify-between items-start mb-8 relative z-10">
+                                        <div>
+                                            <h3 className="text-green-600 text-sm font-black uppercase tracking-widest flex items-center gap-2 mb-1">
+                                                <LucideIcon name="CheckCircle" size={18} />
+                                                Certificate Valid
+                                            </h3>
+                                            <p className="text-slate-400 text-[10px] font-bold uppercase tracking-tighter">Verification ID: {id.toUpperCase()}</p>
+                                        </div>
+                                        <div className="bg-green-50 text-green-700 px-4 py-1 rounded-full text-[10px] font-black uppercase">
+                                            Authentic
+                                        </div>
+                                    </div>
+
+                                    <div className="grid gap-6 relative z-10">
+                                        <div className="border-b border-slate-50 pb-4">
+                                            <label className="text-slate-400 text-[10px] font-black uppercase tracking-widest block mb-1">Intern Name</label>
+                                            <p className="text-2xl font-bold text-slate-900">{internData.name}</p>
+                                        </div>
+                                        
+                                        <div className="grid grid-cols-2 gap-4">
+                                            <div>
+                                                <label className="text-slate-400 text-[10px] font-black uppercase tracking-widest block mb-1">Domain</label>
+                                                <p className="text-base font-bold text-slate-700">{internData.domain}</p>
+                                            </div>
+                                            <div>
+                                                <label className="text-slate-400 text-[10px] font-black uppercase tracking-widest block mb-1">Issue Date</label>
+                                                <p className="text-base font-bold text-slate-700">
+                                                    {new Date(internData.issue_date).toLocaleDateString('en-GB', { 
+                                                        day: '2-digit', month: 'short', year: 'numeric' 
+                                                    })}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* Error Message */}
                             {status === 'error' && (
-                                <div className="mt-8 p-4 bg-rose-50 border border-rose-100 rounded-2xl text-rose-600 text-sm font-bold animate-fade-up">
-                                    No record found for ID: <span className="underline">{id}</span>. Please check your certificate for the correct ID.
+                                <div className="mt-8 p-4 bg-rose-50 border border-rose-100 rounded-2xl text-rose-600 text-sm font-bold animate-fade-up flex items-center justify-center gap-2">
+                                    <LucideIcon name="AlertCircle" size={16} />
+                                    <span>No record found for ID: <span className="underline">{id}</span></span>
                                 </div>
                             )}
 
@@ -133,7 +199,7 @@
                         </div>
                     </main>
 
-                    {/* Footer Logo Section */}
+                    {/* Footer */}
                     <footer className="py-16 text-center border-t border-slate-100 flex flex-col items-center bg-white">
                         <div className="h-16 mb-6">
                              <img 
