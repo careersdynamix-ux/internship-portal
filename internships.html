@@ -57,7 +57,25 @@
         const App = () => {
             const [selectedDuration, setSelectedDuration] = useState('1 Month');
             const [activeModal, setActiveModal] = useState(null);
+            const [showApplyForm, setShowApplyForm] = useState(false);
             const [scrolled, setScrolled] = useState(false);
+            const [isSubmitting, setIsSubmitting] = useState(false);
+
+            // Form Fields State
+            const [formData, setFormData] = useState({
+                email: '',
+                name: '',
+                gender: '',
+                phone: '',
+                country: 'India',
+                college: '',
+                qualification: '',
+                year: '',
+                domain: '',
+                duration: '1 Month',
+                linkedinFollow: ''
+            });
+            const [resumeFile, setResumeFile] = useState(null);
 
             useEffect(() => {
                 const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -85,8 +103,61 @@
                 { icon: 'Layout', title: 'Project Based', desc: 'Build a portfolio with real-world applications.', color: 'text-rose-600' }
             ];
 
-            const handleApply = () => {
-                window.open('https://forms.gle/494ypW5GZPs6iqWH6', '_blank');
+            const handleInputChange = (e) => {
+                const { name, value } = e.target;
+                setFormData(prev => ({ ...prev, [name]: value }));
+            };
+
+            const handleFileChange = (e) => {
+                setResumeFile(e.target.files[0]);
+            };
+
+            const openFormModal = (role) => {
+                setFormData(prev => ({ ...prev, domain: role.title.toUpperCase(), duration: selectedDuration }));
+                setActiveModal(null);
+                setShowApplyForm(true);
+            };
+
+            const handleFormSubmit = (e) => {
+                e.preventDefault();
+                if (!resumeFile) {
+                    alert("Please upload your resume to proceed.");
+                    return;
+                }
+
+                setIsSubmitting(true);
+                const reader = new FileReader();
+
+                reader.onloadend = function() {
+                    const payload = {
+                        ...formData,
+                        fileName: resumeFile.name,
+                        fileMimeType: resumeFile.type,
+                        fileBytes: reader.result
+                    };
+
+                    // 1. CONFIGURATION PATHS
+                    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxew5g-PoykXSFVFmDrw1n90nZrEiYstvrbDhRnudhPUT6E9ALWEr3va19Dt5EiDy8DLw/exec"; 
+                    const CASHFREE_LINK = "https://payments.cashfree.com/forms/dynamix-networks";
+
+                    fetch(GOOGLE_SCRIPT_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    })
+                    .then(() => {
+                        // Redirect directly to payment loop
+                        window.location.href = CASHFREE_LINK;
+                    })
+                    .catch(err => {
+                        alert("Application processing failed. Please check network connection.");
+                        setIsSubmitting(false);
+                        console.error(err);
+                    });
+                };
+
+                reader.readAsDataURL(resumeFile);
             };
 
             return (
@@ -145,10 +216,11 @@
                         </div>
                     </main>
 
+                    {/* DETAILS MODAL */}
                     {activeModal && (
                         <div className="fixed inset-0 z-[100] flex items-end md:items-center justify-center p-0 md:p-4">
                             <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" onClick={() => setActiveModal(null)} />
-                            <div className="relative bg-white rounded-t-[3rem] md:rounded-[3rem] w-full max-w-2xl max-h-[90vh] overflow-y-auto animate-fade-in shadow-2xl">
+                            <div className="relative bg-white rounded-t-[3rem] md:rounded-[3rem] w-full max-w-2xl max-h-[90vh] overflow-y-auto animate-fade-in shadow-2xl z-10">
                                 <div className={`p-10 md:p-14 bg-gradient-to-br ${activeModal.color} text-white relative`}>
                                     <button onClick={() => setActiveModal(null)} className="absolute top-8 right-8 p-2 bg-black/10 rounded-full hover:bg-black/20 transition-colors">
                                         <LucideIcon name="X" size={20} />
@@ -180,7 +252,7 @@
 
                                     <div className="flex flex-col sm:flex-row gap-4">
                                         <button 
-                                            onClick={handleApply}
+                                            onClick={() => openFormModal(activeModal)}
                                             className="flex-[2] py-5 bg-blue-600 text-white font-black rounded-2xl shadow-xl shadow-blue-200 hover:bg-blue-700 transition-all flex items-center justify-center gap-2"
                                         >
                                             Apply for {activeModal.title} <LucideIcon name="ArrowRight" size={18} />
@@ -188,6 +260,131 @@
                                         <button onClick={() => setActiveModal(null)} className="flex-1 py-5 bg-slate-100 text-slate-600 font-bold rounded-2xl hover:bg-slate-200 transition-all">Close</button>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* NATIVE WEB APPLICATION FORM MODAL */}
+                    {showApplyForm && (
+                        <div className="fixed inset-0 z-[110] flex items-center justify-center p-0 md:p-6 overflow-y-auto bg-slate-900/50 backdrop-blur-sm">
+                            <div className="relative bg-white md:rounded-[2.5rem] w-full max-w-3xl my-auto shadow-2xl max-h-screen md:max-h-[92vh] flex flex-col animate-fade-in">
+                                
+                                {/* Header */}
+                                <div className="p-6 md:p-8 border-b border-slate-100 flex justify-between items-center bg-slate-50 md:rounded-t-[2.5rem] shrink-0">
+                                    <div>
+                                        <h2 className="text-2xl font-black text-slate-900">Internship Application</h2>
+                                        <p className="text-xs font-bold text-blue-600 mt-1 uppercase tracking-wider">{formData.domain} • {formData.duration}</p>
+                                    </div>
+                                    <button onClick={() => setShowApplyForm(false)} className="p-2 bg-slate-200/60 text-slate-700 rounded-full hover:bg-slate-200 transition-colors">
+                                        <LucideIcon name="X" size={18} />
+                                    </button>
+                                </div>
+
+                                {/* Main Form Body */}
+                                <form onSubmit={handleFormSubmit} className="p-6 md:p-10 overflow-y-auto space-y-8 text-left flex-1">
+                                    
+                                    {/* Email */}
+                                    <div>
+                                        <label className="block text-sm font-bold text-slate-800 mb-2">Email Address *</label>
+                                        <input type="email" name="email" value={formData.email} onChange={handleInputChange} required className="w-full px-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl font-medium focus:outline-none focus:border-blue-600 focus:bg-white text-sm text-slate-900 transition-all" placeholder="Your email address" />
+                                    </div>
+
+                                    {/* Name */}
+                                    <div>
+                                        <label className="block text-sm font-bold text-slate-800 mb-1">Name *</label>
+                                        <span className="block text-xs font-medium text-slate-400 mb-2">→ Enter your full name as you want it on the offer letter.</span>
+                                        <input type="text" name="name" value={formData.name} onChange={handleInputChange} required className="w-full px-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl font-medium focus:outline-none focus:border-blue-600 focus:bg-white text-sm text-slate-900 transition-all" placeholder="Your answer" />
+                                    </div>
+
+                                    {/* Gender */}
+                                    <div>
+                                        <label className="block text-sm font-bold text-slate-800 mb-3">Gender *</label>
+                                        <div className="flex gap-6">
+                                            <label className="flex items-center gap-2.5 font-semibold text-slate-600 text-sm cursor-pointer">
+                                                <input type="radio" name="gender" value="Male" checked={formData.gender === 'Male'} onChange={handleInputChange} required className="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500" /> Male
+                                            </label>
+                                            <label className="flex items-center gap-2.5 font-semibold text-slate-600 text-sm cursor-pointer">
+                                                <input type="radio" name="gender" value="Female" checked={formData.gender === 'Female'} onChange={handleInputChange} className="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500" /> Female
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    {/* Contact Number */}
+                                    <div>
+                                        <label className="block text-sm font-bold text-slate-800 mb-2">Contact Number *</label>
+                                        <input type="tel" name="phone" value={formData.phone} onChange={handleInputChange} required className="w-full px-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl font-medium focus:outline-none focus:border-blue-600 focus:bg-white text-sm text-slate-900 transition-all" placeholder="Your answer" />
+                                    </div>
+
+                                    {/* Country */}
+                                    <div>
+                                        <label className="block text-sm font-bold text-slate-800 mb-3">Country (Only Indian candidates) *</label>
+                                        <label className="flex items-center gap-2.5 font-semibold text-slate-900 text-sm">
+                                            <input type="radio" name="country" value="India" checked readOnly className="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500" /> India
+                                        </label>
+                                    </div>
+
+                                    {/* College Name */}
+                                    <div>
+                                        <label className="block text-sm font-bold text-slate-800 mb-1">College Name *</label>
+                                        <span className="block text-xs font-medium text-slate-400 mb-2">→ Enter the full name of your college/university.</span>
+                                        <input type="text" name="college" value={formData.college} onChange={handleInputChange} required className="w-full px-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl font-medium focus:outline-none focus:border-blue-600 focus:bg-white text-sm text-slate-900 transition-all" placeholder="Your answer" />
+                                    </div>
+
+                                    {/* Highest Academic Qualification */}
+                                    <div>
+                                        <label className="block text-sm font-bold text-slate-800 mb-2">Highest Academic Qualification *</label>
+                                        <input type="text" name="qualification" value={formData.qualification} onChange={handleInputChange} required className="w-full px-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl font-medium focus:outline-none focus:border-blue-600 focus:bg-white text-sm text-slate-900 transition-all" placeholder="Your answer" />
+                                    </div>
+
+                                    {/* Current Year */}
+                                    <div>
+                                        <label className="block text-sm font-bold text-slate-800 mb-2">Current Year of your Course? *</label>
+                                        <input type="text" name="year" value={formData.year} onChange={handleInputChange} required className="w-full px-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl font-medium focus:outline-none focus:border-blue-600 focus:bg-white text-sm text-slate-900 transition-all" placeholder="Your answer" />
+                                    </div>
+
+                                    {/* LinkedIn Page Link Follow Status */}
+                                    <div>
+                                        <label className="block text-sm font-bold text-slate-800 mb-1">LinkedIn Page Link - *</label>
+                                        <span className="block text-xs font-bold text-slate-400 mb-2">Follow our LinkedIn page - <a href="https://www.linkedin.com/company/dynamix-networks/" target="_blank" className="text-blue-600 hover:underline inline-flex items-center gap-0.5">Click here <LucideIcon name="ExternalLink" size={12} className="inline" /></a></span>
+                                        <span className="block text-xs font-semibold text-slate-500 mb-3">Followed LinkedIn Page</span>
+                                        <div className="flex gap-6">
+                                            <label className="flex items-center gap-2.5 font-semibold text-slate-600 text-sm cursor-pointer">
+                                                <input type="radio" name="linkedinFollow" value="Yes" checked={formData.linkedinFollow === 'Yes'} onChange={handleInputChange} required className="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500" /> Yes
+                                            </label>
+                                            <label className="flex items-center gap-2.5 font-semibold text-slate-600 text-sm cursor-pointer">
+                                                <input type="radio" name="linkedinFollow" value="No" checked={formData.linkedinFollow === 'No'} onChange={handleInputChange} className="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500" /> No
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    {/* Resume File Upload */}
+                                    <div>
+                                        <label className="block text-sm font-bold text-slate-800 mb-1">Resume *</label>
+                                        <span className="block text-xs font-medium text-slate-400 mb-3">Upload 1 supported file. Max 10 MB.</span>
+                                        <div className="flex items-center justify-center w-full">
+                                            <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-slate-200 border-dashed rounded-2xl cursor-pointer bg-slate-50 hover:bg-slate-100/50 hover:border-blue-400 transition-all">
+                                                <div className="flex flex-col items-center justify-center pt-5 pb-6 px-4 text-center">
+                                                    <LucideIcon name="UploadCloud" className="text-slate-400 mb-2" size={28} />
+                                                    <p className="text-sm text-slate-600 font-bold">{resumeFile ? resumeFile.name : "Select or drag file here"}</p>
+                                                    <p className="text-[10px] text-slate-400 font-medium mt-1">PDF, DOC, DOCX up to 10MB</p>
+                                                </div>
+                                                <input type="file" accept=".pdf,.doc,.docx" onChange={handleFileChange} className="hidden" />
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    {/* Action Bar Footer inside scrollbox */}
+                                    <div className="pt-4 border-t border-slate-100 flex flex-col sm:flex-row gap-4 shrink-0">
+                                        <button 
+                                            type="submit" 
+                                            disabled={isSubmitting}
+                                            className="flex-[2] py-4.5 bg-blue-600 text-white font-black rounded-xl shadow-xl shadow-blue-100 hover:bg-blue-700 disabled:bg-slate-300 disabled:shadow-none transition-all flex items-center justify-center gap-2"
+                                        >
+                                            {isSubmitting ? "Processing Registration..." : "Submit & Proceed to Checkout"} <LucideIcon name="CreditCard" size={18} />
+                                        </button>
+                                        <button type="button" onClick={() => setShowApplyForm(false)} className="flex-1 py-4.5 bg-slate-100 text-slate-600 font-bold rounded-xl hover:bg-slate-200 transition-all">Cancel</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     )}
