@@ -12,7 +12,7 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=300;400;500;600;700;800&display=swap');
         
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif; 
@@ -49,7 +49,6 @@
     <script type="text/babel" data-presets="custom-react">
         const { useState, useEffect, useRef } = React;
 
-        // Upgraded with safety fallbacks to prevent screen blanking on bad icon references
         const LucideIcon = ({ name, size = 24, className = "" }) => {
             const iconRef = useRef(null);
             useEffect(() => {
@@ -289,111 +288,190 @@
                                     </button>
                                 </div>
 
-                                {/* Main Form Body */}
-                                <form onSubmit={handleFormSubmit} className="p-6 md:p-10 overflow-y-auto space-y-8 text-left flex-1">
+                                {/* Main Form Container */}
+                                <div className="overflow-y-auto flex-1">
                                     
-                                    {/* Email */}
-                                    <div>
-                                        <label className="block text-sm font-bold text-slate-800 mb-2">Email Address *</label>
-                                        <input type="email" name="email" value={formData.email} onChange={handleInputChange} required className="w-full px-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl font-medium focus:outline-none focus:border-blue-600 focus:bg-white text-sm text-slate-900 transition-all" placeholder="Your email address" />
-                                    </div>
-
-                                    {/* Name */}
-                                    <div>
-                                        <label className="block text-sm font-bold text-slate-800 mb-1">Name *</label>
-                                        <span className="block text-xs font-medium text-slate-400 mb-2">→ Enter your full name as you want it on the offer letter.</span>
-                                        <input type="text" name="name" value={formData.name} onChange={handleInputChange} required className="w-full px-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl font-medium focus:outline-none focus:border-blue-600 focus:bg-white text-sm text-slate-900 transition-all" placeholder="Your answer" />
-                                    </div>
-
-                                    {/* Gender */}
-                                    <div>
-                                        <label className="block text-sm font-bold text-slate-800 mb-3">Gender *</label>
-                                        <div className="flex gap-6">
-                                            <label className="flex items-center gap-2.5 font-semibold text-slate-600 text-sm cursor-pointer">
-                                                <input type="radio" name="gender" value="Male" checked={formData.gender === 'Male'} onChange={handleInputChange} required className="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500" /> Male
-                                            </label>
-                                            <label className="flex items-center gap-2.5 font-semibold text-slate-600 text-sm cursor-pointer">
-                                                <input type="radio" name="gender" value="Female" checked={formData.gender === 'Female'} onChange={handleInputChange} className="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500" /> Female
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                    {/* Contact Number */}
-                                    <div>
-                                        <label className="block text-sm font-bold text-slate-800 mb-2">Contact Number *</label>
-                                        <input type="tel" name="phone" value={formData.phone} onChange={handleInputChange} required className="w-full px-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl font-medium focus:outline-none focus:border-blue-600 focus:bg-white text-sm text-slate-900 transition-all" placeholder="Your answer" />
-                                    </div>
-
-                                    {/* Country */}
-                                    <div>
-                                        <label className="block text-sm font-bold text-slate-800 mb-3">Country (Only Indian candidates) *</label>
-                                        <label className="flex items-center gap-2.5 font-semibold text-slate-900 text-sm">
-                                            <input type="radio" name="country" value="India" checked readOnly className="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500" /> India
-                                        </label>
-                                    </div>
-
-                                    {/* College Name */}
-                                    <div>
-                                        <label className="block text-sm font-bold text-slate-800 mb-1">College Name *</label>
-                                        <span className="block text-xs font-medium text-slate-400 mb-2">→ Enter the full name of your college/university.</span>
-                                        <input type="text" name="college" value={formData.college} onChange={handleInputChange} required className="w-full px-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl font-medium focus:outline-none focus:border-blue-600 focus:bg-white text-sm text-slate-900 transition-all" placeholder="Your answer" />
-                                    </div>
-
-                                    {/* Highest Academic Qualification */}
-                                    <div>
-                                        <label className="block text-sm font-bold text-slate-800 mb-2">Highest Academic Qualification *</label>
-                                        <input type="text" name="qualification" value={formData.qualification} onChange={handleInputChange} required className="w-full px-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl font-medium focus:outline-none focus:border-blue-600 focus:bg-white text-sm text-slate-900 transition-all" placeholder="Your answer" />
-                                    </div>
-
-                                    {/* Current Year */}
-                                    <div>
-                                        <label className="block text-sm font-bold text-slate-800 mb-2">Current Year of your Course? *</label>
-                                        <input type="text" name="year" value={formData.year} onChange={handleInputChange} required className="w-full px-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl font-medium focus:outline-none focus:border-blue-600 focus:bg-white text-sm text-slate-900 transition-all" placeholder="Your answer" />
-                                    </div>
-
-                                    {/* LinkedIn Page Link Follow Status */}
-                                    <div>
-                                        <label className="block text-sm font-bold text-slate-800 mb-1">LinkedIn Page Link - *</label>
-                                        <span className="block text-xs font-bold text-slate-400 mb-2">Follow our LinkedIn page - <a href="https://www.linkedin.com/company/dynamix-networks/" target="_blank" className="text-blue-600 hover:underline inline-flex items-center gap-0.5">Click here <LucideIcon name="ExternalLink" size={12} className="inline" /></a></span>
-                                        <span className="block text-xs font-semibold text-slate-500 mb-3">Followed LinkedIn Page</span>
-                                        <div className="flex gap-6">
-                                            <label className="flex items-center gap-2.5 font-semibold text-slate-600 text-sm cursor-pointer">
-                                                <input type="radio" name="linkedinFollow" value="Yes" checked={formData.linkedinFollow === 'Yes'} onChange={handleInputChange} required className="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500" /> Yes
-                                            </label>
-                                            <label className="flex items-center gap-2.5 font-semibold text-slate-600 text-sm cursor-pointer">
-                                                <input type="radio" name="linkedinFollow" value="No" checked={formData.linkedinFollow === 'No'} onChange={handleInputChange} className="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500" /> No
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                    {/* Resume File Upload */}
-                                    <div>
-                                        <label className="block text-sm font-bold text-slate-800 mb-1">Resume *</label>
-                                        <span className="block text-xs font-medium text-slate-400 mb-3">Upload 1 supported file. Max 10 MB.</span>
-                                        <div className="flex items-center justify-center w-full">
-                                            <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-slate-200 border-dashed rounded-2xl cursor-pointer bg-slate-50 hover:bg-slate-100/50 hover:border-blue-400 transition-all">
-                                                <div className="flex flex-col items-center justify-center pt-5 pb-6 px-4 text-center">
-                                                    <LucideIcon name="UploadCloud" className="text-slate-400 mb-2" size={28} />
-                                                    <p className="text-sm text-slate-600 font-bold">{resumeFile ? resumeFile.name : "Select or drag file here"}</p>
-                                                    <p className="text-[10px] text-slate-400 font-medium mt-1">PDF, DOC, DOCX up to 10MB</p>
+                                    {/* DYNAMIC BANNER REPLICA FROM IMAGE */}
+                                    <div className="m-6 md:m-8 p-6 bg-gradient-to-r from-slate-50 via-white to-slate-50 rounded-2xl border border-slate-200 shadow-sm relative overflow-hidden">
+                                        <div className="relative z-10">
+                                            <h3 className="text-xl md:text-3xl font-extrabold text-slate-800 tracking-tight leading-tight">
+                                                IBM Collaborative Internship & <br />
+                                                <span className="text-blue-600">Placement Assistance Program 2026</span>
+                                            </h3>
+                                            
+                                            <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-slate-100 pt-4">
+                                                <div>
+                                                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Approved By</p>
+                                                    <div className="flex items-center gap-3">
+                                                        <div className="px-2 py-1 bg-white border border-slate-200 rounded text-[10px] font-black text-amber-700 shadow-sm">MSME</div>
+                                                        <div className="px-2 py-1 bg-white border border-slate-200 rounded text-[10px] font-black text-blue-800 shadow-sm">AICTE</div>
+                                                    </div>
                                                 </div>
-                                                <input type="file" accept=".pdf,.doc,.docx" onChange={handleFileChange} className="hidden" />
-                                            </label>
+                                                
+                                                <div className="flex items-center gap-2 bg-white px-4 py-1.5 border border-slate-200 rounded-xl shadow-sm">
+                                                    <span className="text-sm font-black text-blue-900 tracking-tighter">IBM Gold Partner</span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
-                                    {/* Action Bar Footer inside scrollbox */}
-                                    <div className="pt-4 border-t border-slate-100 flex flex-col sm:flex-row gap-4 shrink-0">
-                                        <button 
-                                            type="submit" 
-                                            disabled={isSubmitting}
-                                            className="w-full sm:flex-[2] py-4.5 bg-blue-600 text-white font-black rounded-xl shadow-xl shadow-blue-100 hover:bg-blue-700 disabled:bg-slate-300 disabled:shadow-none transition-all flex items-center justify-center gap-2"
-                                        >
-                                            {isSubmitting ? "Processing Registration..." : "Submit & Proceed to Checkout"} <LucideIcon name="CreditCard" size={18} />
-                                        </button>
-                                        <button type="button" onClick={() => setShowApplyForm(false)} className="w-full sm:flex-1 py-4.5 bg-slate-100 text-slate-600 font-bold rounded-xl hover:bg-slate-200 transition-all">Cancel</button>
+                                    {/* DOCUMENT PREVIEWS SECTION */}
+                                    <div className="mx-6 md:mx-8 px-4 py-5 bg-blue-50/50 border border-blue-100 rounded-2xl space-y-4">
+                                        <h4 className="text-xs font-black text-blue-700 uppercase tracking-wider flex items-center gap-1.5">
+                                            <LucideIcon name="FileCheck" size={14} /> Verifiable Program Artifacts Included:
+                                        </h4>
+                                        
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                            {/* Completion Certificate Item */}
+                                            <div className="bg-white p-3 border border-slate-200 rounded-xl flex flex-col gap-3 shadow-sm">
+                                                <div className="flex items-center gap-3">
+                                                    <div className="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+                                                        <LucideIcon name="Award" size={20} />
+                                                    </div>
+                                                    <div>
+                                                        <p className="text-xs font-bold text-slate-800">Completion Certificate</p>
+                                                        <p className="text-[10px] font-medium text-slate-400">Verifiable with Tracking QR</p>
+                                                    </div>
+                                                </div>
+                                                {/* Visual Image Preview */}
+                                                <div className="w-full h-full bg-slate-100 rounded-lg overflow-hidden border border-slate-200/60 relative group">
+                                                    <img 
+                                                        src="Blue and Gold Modern Certificate of Appreciation Certificate  .png" 
+                                                        alt="Sample Completion Certificate" 
+                                                        className="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105" 
+                                                    />
+                                                    <div className="absolute inset-0 bg-slate-900/5 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                                        <span className="bg-white/90 backdrop-blur-sm text-[9px] font-bold text-slate-700 px-2 py-1 rounded shadow-sm border border-slate-200">Official Format</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {/* LOR Item */}
+                                            <div className="bg-white p-3 border border-slate-200 rounded-xl flex flex-col justify-between shadow-sm">
+                                                <div className="flex items-center gap-3">
+                                                    <div className="w-10 h-10 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
+                                                        <LucideIcon name="FileText" size={20} />
+                                                    </div>
+                                                    <div>
+                                                        <p className="text-xs font-bold text-slate-800">Letter of Recommendation</p>
+                                                        <p className="text-[10px] font-medium text-slate-400">Signed by Industry Experts (LOR)</p>
+                                                    </div>
+                                                </div>
+                                                <div className="w-full h-32 bg-slate-50 rounded-lg border border-slate-100 flex flex-col items-center justify-center text-center p-4">
+                                                    <LucideIcon name="FileCheck" className="text-indigo-400 mb-1" size={20} />
+                                                    <p className="text-[10px] font-bold text-slate-500">Corporate Endorsement</p>
+                                                    <p className="text-[9px] text-slate-400 max-w-[140px] mt-0.5 mx-auto leading-tight">Awarded to top performers on project validation.</p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </form>
+
+                                    {/* Form Fields */}
+                                    <form onSubmit={handleFormSubmit} className="p-6 md:p-8 space-y-8 text-left box-border">
+                                        
+                                        {/* Email */}
+                                        <div>
+                                            <label className="block text-sm font-bold text-slate-800 mb-2">Email Address *</label>
+                                            <input type="email" name="email" value={formData.email} onChange={handleInputChange} required className="w-full px-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl font-medium focus:outline-none focus:border-blue-600 focus:bg-white text-sm text-slate-900 transition-all" placeholder="Your email address" />
+                                        </div>
+
+                                        {/* Name */}
+                                        <div>
+                                            <label className="block text-sm font-bold text-slate-800 mb-1">Name *</label>
+                                            <span className="block text-xs font-medium text-slate-400 mb-2">→ Enter your full name as you want it on the offer letter.</span>
+                                            <input type="text" name="name" value={formData.name} onChange={handleInputChange} required className="w-full px-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl font-medium focus:outline-none focus:border-blue-600 focus:bg-white text-sm text-slate-900 transition-all" placeholder="Your answer" />
+                                        </div>
+
+                                        {/* Gender */}
+                                        <div>
+                                            <label className="block text-sm font-bold text-slate-800 mb-3">Gender *</label>
+                                            <div className="flex gap-6">
+                                                <label className="flex items-center gap-2.5 font-semibold text-slate-600 text-sm cursor-pointer">
+                                                    <input type="radio" name="gender" value="Male" checked={formData.gender === 'Male'} onChange={handleInputChange} required className="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500" /> Male
+                                                </label>
+                                                <label className="flex items-center gap-2.5 font-semibold text-slate-600 text-sm cursor-pointer">
+                                                    <input type="radio" name="gender" value="Female" checked={formData.gender === 'Female'} onChange={handleInputChange} className="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500" /> Female
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        {/* Contact Number */}
+                                        <div>
+                                            <label className="block text-sm font-bold text-slate-800 mb-2">Contact Number *</label>
+                                            <input type="tel" name="phone" value={formData.phone} onChange={handleInputChange} required className="w-full px-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl font-medium focus:outline-none focus:border-blue-600 focus:bg-white text-sm text-slate-900 transition-all" placeholder="Your answer" />
+                                        </div>
+
+                                        {/* Country */}
+                                        <div>
+                                            <label className="block text-sm font-bold text-slate-800 mb-3">Country (Only Indian candidates) *</label>
+                                            <label className="flex items-center gap-2.5 font-semibold text-slate-900 text-sm">
+                                                <input type="radio" name="country" value="India" checked readOnly className="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500" /> India
+                                            </label>
+                                        </div>
+
+                                        {/* College Name */}
+                                        <div>
+                                            <label className="block text-sm font-bold text-slate-800 mb-1">College Name *</label>
+                                            <span className="block text-xs font-medium text-slate-400 mb-2">→ Enter the full name of your college/university.</span>
+                                            <input type="text" name="college" value={formData.college} onChange={handleInputChange} required className="w-full px-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl font-medium focus:outline-none focus:border-blue-600 focus:bg-white text-sm text-slate-900 transition-all" placeholder="Your answer" />
+                                        </div>
+
+                                        {/* Highest Academic Qualification */}
+                                        <div>
+                                            <label className="block text-sm font-bold text-slate-800 mb-2">Highest Academic Qualification *</label>
+                                            <input type="text" name="qualification" value={formData.qualification} onChange={handleInputChange} required className="w-full px-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl font-medium focus:outline-none focus:border-blue-600 focus:bg-white text-sm text-slate-900 transition-all" placeholder="Your answer" />
+                                        </div>
+
+                                        {/* Current Year */}
+                                        <div>
+                                            <label className="block text-sm font-bold text-slate-800 mb-2">Current Year of your Course? *</label>
+                                            <input type="text" name="year" value={formData.year} onChange={handleInputChange} required className="w-full px-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl font-medium focus:outline-none focus:border-blue-600 focus:bg-white text-sm text-slate-900 transition-all" placeholder="Your answer" />
+                                        </div>
+
+                                        {/* LinkedIn Page Link Follow Status */}
+                                        <div>
+                                            <label className="block text-sm font-bold text-slate-800 mb-1">LinkedIn Page Link - *</label>
+                                            <span className="block text-xs font-bold text-slate-400 mb-2">Follow our LinkedIn page - <a href="https://www.linkedin.com/company/dynamix-networks/" target="_blank" className="text-blue-600 hover:underline inline-flex items-center gap-0.5">Click here <LucideIcon name="ExternalLink" size={12} className="inline" /></a></span>
+                                            <span className="block text-xs font-semibold text-slate-500 mb-3">Followed LinkedIn Page</span>
+                                            <div className="flex gap-6">
+                                                <label className="flex items-center gap-2.5 font-semibold text-slate-600 text-sm cursor-pointer">
+                                                    <input type="radio" name="linkedinFollow" value="Yes" checked={formData.linkedinFollow === 'Yes'} onChange={handleInputChange} required className="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500" /> Yes
+                                                </label>
+                                                <label className="flex items-center gap-2.5 font-semibold text-slate-600 text-sm cursor-pointer">
+                                                    <input type="radio" name="linkedinFollow" value="No" checked={formData.linkedinFollow === 'No'} onChange={handleInputChange} className="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500" /> No
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        {/* Resume File Upload */}
+                                        <div>
+                                            <label className="block text-sm font-bold text-slate-800 mb-1">Resume *</label>
+                                            <span className="block text-xs font-medium text-slate-400 mb-3">Upload 1 supported file. Max 10 MB.</span>
+                                            <div className="flex items-center justify-center w-full">
+                                                <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-slate-200 border-dashed rounded-2xl cursor-pointer bg-slate-50 hover:bg-slate-100/50 hover:border-blue-400 transition-all">
+                                                    <div className="flex flex-col items-center justify-center pt-5 pb-6 px-4 text-center">
+                                                        <LucideIcon name="UploadCloud" className="text-slate-400 mb-2" size={28} />
+                                                        <p className="text-sm text-slate-600 font-bold">{resumeFile ? resumeFile.name : "Select or drag file here"}</p>
+                                                        <p className="text-[10px] text-slate-400 font-medium mt-1">PDF, DOC, DOCX up to 10MB</p>
+                                                    </div>
+                                                    <input type="file" accept=".pdf,.doc,.docx" onChange={handleFileChange} className="hidden" />
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        {/* Action Buttons */}
+                                        <div className="pt-4 border-t border-slate-100 flex flex-col sm:flex-row gap-4 shrink-0">
+                                            <button 
+                                                type="submit" 
+                                                disabled={isSubmitting}
+                                                className="w-full sm:flex-[2] py-4.5 bg-blue-600 text-white font-black rounded-xl shadow-xl shadow-blue-100 hover:bg-blue-700 disabled:bg-slate-300 disabled:shadow-none transition-all flex items-center justify-center gap-2"
+                                            >
+                                                {isSubmitting ? "Processing Registration..." : "Submit & Proceed to Checkout"} <LucideIcon name="CreditCard" size={18} />
+                                            </button>
+                                            <button type="button" onClick={() => setShowApplyForm(false)} className="w-full sm:flex-1 py-4.5 bg-slate-100 text-slate-600 font-bold rounded-xl hover:bg-slate-200 transition-all">Cancel</button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     )}
